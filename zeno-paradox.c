@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define MAX_NUMBER 10
+
 // I'll comment all the code right here and put in gist.github, ok?
 //
 // You can talk to me in chat at Hangouts. I'll listenig you.
@@ -14,18 +16,48 @@
 
 ///float zeno-paradox(float number);
 
+ /* 
+  * 1º Case:
+  *
+  * 1 = 1/2 + 1/4 + ... + 1/(2^n), n -> infinity
+  *
+  * 2º Case:
+  *
+  * 2 = 2/2 + 2/4 + ... + 2/(2^n), n -> infinity
+  *
+  * n -> infinity (infinity = MAX_NUMBER = 1000)
+  *
+  * 2 = 2/(2^1) + 2/(2^2) + ... + 2/(2^n)
+  *
+  */
+
 float zeno_paradox(float number) {
-    for(int i = 0; i < 1000; i++) {
-        pow(2,i);
+    float sum = 0;
+
+    int i;
+    int n = MAX_NUMBER * 1000;
+
+    printf("%0.f = ", number);
+
+    for (i = 1; i < n - 1; ++i) {
+        printf("%0.f/%0.lf + ", number, pow(2, i));
+        sum += number/(pow(2, i));
+
+        if (i > 50)
+            i = n - 1;
     }
 
-    return 1;
+    printf("%0.f/%0.lf", number, pow(2, n - 1));
+
+    printf(" = %0.f\n", sum);
+
+    return sum;
 }
 
 int main() {
 
     // So, lets start with a test:
-    printf("1 = %.0f\n", zeno_paradox(1));
+    zeno_paradox(1);
 
 
     // You can answer me in Hangouts. What you think that will happen right now?
@@ -36,7 +68,7 @@ int main() {
 
     // The code worked. But and with the number two?
 
-    printf("2 = %.0f\n", zeno_paradox(2));
+    zeno_paradox(2);
 
     // Didn't work.
 
@@ -44,5 +76,5 @@ int main() {
 
     // I'll commit this code. Ok? Answer me at Hangouts.
 
-    // 
+    zeno_paradox((float)pow(2, 10));
 }
